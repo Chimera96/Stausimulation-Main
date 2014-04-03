@@ -94,8 +94,7 @@ namespace Stausimulation
                    */
             } 
             }
-            //very impotent shit
-            /*
+            
              for (int zaehler2 = 1; zaehler2<=variables.height; zaehler2++)
             {
                for (int zaehler3 = 1; zaehler3<=variables.width; zaehler3++)
@@ -110,7 +109,7 @@ namespace Stausimulation
                   
                  }
              }
-             */ 
+              
 
             
            /* Transmitter[] transmitter = new Transmitter[variables.carCount];
@@ -288,14 +287,14 @@ namespace Stausimulation
             GraphicsDevice.Clear(Color.White);
             variables.spriteBatch.Begin();
 
-            //for (int z = 0; z == (variables.carCount - 1); z++)ö
-            //{
+            for (int z = 0; z == (variables.carCount - 1); z++)
+            {
              //   int temp = Convert.ToInt32(transmitter[z].givePositionX);
 
                 // Option One (if you have integer size and coordinates)
-                variables.spriteBatch.Draw(variables.whiteRectangle, new Rectangle(50 , 20, 80, 30),
+                variables.spriteBatch.Draw(variables.whiteRectangle, new Rectangle(transmitter[z].givePositionX() , transmitter[z].givePositionY(), 80, 30),
                         Color.White);
-            //}
+            }
 
             variables.spriteBatch.End();
            
