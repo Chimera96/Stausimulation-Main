@@ -13,8 +13,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Stausimulation
 {
-
-
     public static class variables
     {
         //Globale Variablen
@@ -28,6 +26,8 @@ namespace Stausimulation
         public static string[, ,] array_map = new string [variables.width,variables.height,5];
         public static int[,] spawns = new int [100, 2];
         public static Random rnd = new Random();
+        public static SpriteBatch spriteBatch;
+        public static Texture2D whiteRectangle;
 
 
 
@@ -94,6 +94,8 @@ namespace Stausimulation
                    */
             } 
             }
+            //very impotent shit
+            /*
              for (int zaehler2 = 1; zaehler2<=variables.height; zaehler2++)
             {
                for (int zaehler3 = 1; zaehler3<=variables.width; zaehler3++)
@@ -108,6 +110,7 @@ namespace Stausimulation
                   
                  }
              }
+             */ 
 
             
            /* Transmitter[] transmitter = new Transmitter[variables.carCount];
@@ -129,10 +132,11 @@ namespace Stausimulation
 
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
+        
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            variables.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             graphics.PreferredBackBufferWidth = 1000;
             graphics.PreferredBackBufferHeight = 1000;
@@ -140,6 +144,14 @@ namespace Stausimulation
             graphics.ApplyChanges();
             Window.Title = "Seminarkurs 9 - Stausimulation";
 
+           
+            variables.spriteBatch = new SpriteBatch(GraphicsDevice);
+            // Create a 1px square rectangle texture that will be scaled to the
+            // desired size and tinted the desired color at draw time
+            variables.whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            variables.whiteRectangle.SetData(new[] { Color.Black });
+            
+            base.LoadContent();
 
             // TODO: use this.Content to load your game content here
         }
@@ -255,30 +267,47 @@ namespace Stausimulation
 
         /// This is called when the game should draw itself.
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
+        protected override void Draw(GameTime gameTime) 
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+           // GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-           /* damage = new Texture2D(device, 1, 1, 1, TextureUsage.None, SurfaceFormat.Color); 
-            damage.SetData(new [] { new Color(new Vector4(1f, 1f, 1f, 0.6f)), });
-            spriteBatch.Draw(damage, new Rectangle(10,10,1,1), Color.Red);
+            /* damage = new Texture2D(device, 1, 1, 1, TextureUsage.None, SurfaceFormat.Color); 
+             damage.SetData(new [] { new Color(new Vector4(1f, 1f, 1f, 0.6f)), });
+             spriteBatch.Draw(damage, new Rectangle(10,10,1,1), Color.Red);
                  
-            enemy.pos += enemy.speed*(float)gameTime.ElapsedGameTime.TotalSeconds;
+             enemy.pos += enemy.speed*(float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            base.Draw(gameTime);
+             base.Draw(gameTime);
 
-            spriteBatch.Draw(textureDeform,  , Color.White);
-            */
+             spriteBatch.Draw(textureDeform,  , Color.White);
+             */
             //Transmitter[] transmitter;
-
-            for (int z = 0; z == (variables.carCount - 1); z++)
-            {
-                transmitter[z].updateVektor();
-            }
-
-
+           
             base.Draw(gameTime);
+            GraphicsDevice.Clear(Color.White);
+            variables.spriteBatch.Begin();
+
+            //for (int z = 0; z == (variables.carCount - 1); z++)ö
+            //{
+             //   int temp = Convert.ToInt32(transmitter[z].givePositionX);
+
+                // Option One (if you have integer size and coordinates)
+                variables.spriteBatch.Draw(variables.whiteRectangle, new Rectangle(50 , 20, 80, 30),
+                        Color.White);
+            //}
+
+            variables.spriteBatch.End();
+           
+           
+            
+        
+            
+            
+
+            //base.Draw(gameTime);
         }
+         
+         
     }
 }
