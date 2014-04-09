@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +14,7 @@ namespace Designer
         public FormMain()
         {
             InitializeComponent();
-
+            //Einstellung der Fenstergröße
             this.ClientSize = new System.Drawing.Size(308, 424);
         }       
 
@@ -28,6 +28,7 @@ namespace Designer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Bitmap Instanz für die Darstellung der Karte wird erstellt
             bit_map = new Bitmap(picBox.Width, picBox.Height);
             picBox.Image = bit_map;
 
@@ -54,6 +55,7 @@ namespace Designer
         {
             if (!locked)
             {
+                //Die Mausposition wis in die Instanz "pos" übertragen und im Label Ausgegeben 
                 pos.X = e.X; pos.Y = e.Y;
                 lblPos.Text = "Pos: " + "X->" + e.X + " | " + "Y->" + e.Y;
             }
@@ -65,6 +67,7 @@ namespace Designer
             {
                 if (!locked)
                 {
+                    //Bei Linksklick auf die Bitmap wird sie gesperrt und die Buttons für die Richtungsauswahl erscheinen 
                     locked = true;
                     lblLock.Text = "Gesperrt";
                     btnEvent.Visible = true;
@@ -80,6 +83,7 @@ namespace Designer
             {
                 if (locked)
                 {
+                    //Bei Linksklick auf die Bitmap wird sie entsperrt und die Buttons verschwinden
                     locked = false;
                     lblLock.Text = "Entsperrt";
                     btnEvent.Visible = false;
@@ -96,6 +100,7 @@ namespace Designer
 
         private void btnEvent_Click(object sender, EventArgs e)
         {
+            //Die Auswahl für die Einzeichnung der Strecke erscheint
             picBox.Enabled = false;
 
             cBoxNorden.Checked = false;
@@ -121,6 +126,7 @@ namespace Designer
 
             int gültig = 1;
 
+            //Die Auswahl wird in das Kombinationsfeld eingetragen 
             if (combField.Text == "Unterscheidungsfeld")
                 result += "U,";
             else if (combField.Text == "Spawnfeld")
@@ -133,6 +139,7 @@ namespace Designer
                 return;
             }
 
+            //Gültigkeit der Einträge wird überprüft
             if (cBoxNorden.Checked)
             {
                 if (pos.Y -(Convert.ToInt32(txtNorden.Text)) < 1)
@@ -142,8 +149,9 @@ namespace Designer
                 
                 result += "N>" + txtNorden.Text + ",";
             }
-           
-            
+
+
+            //Die Strecken werden auf der Bitmap mit Blauen linien dargestellt
             if (cBoxOsten.Checked)
             {
                 if (pos.X + (Convert.ToInt32(txtOsten.Text)) > SCREEN_WIDTH)
@@ -223,6 +231,8 @@ namespace Designer
                 txtManY.Text = string.Empty;
 
                 str_map[pos.X, pos.Y] = result;
+
+                //Das ausgewählte Pixel wird schwarz markiert
                 bit_map.SetPixel(pos.X, pos.Y, Color.Black);
 
                 picBox.Enabled = true;
